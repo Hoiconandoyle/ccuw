@@ -1,0 +1,50 @@
+[
+  {
+    "id": "I3.10105F.B.CH",
+    "category": "Intel",
+    "name": "CPU Intel Core i3 10105F | 4.40 GHz, 4 Cores 8 Threads, LGA 1200",
+    "price": 1569000
+  },
+  {
+    "id": "I5.12400F.B.CH",
+    "category": "Intel",
+    "name": "CPU Intel Core I5 12400F | LGA1700, Turbo 4.40 GHz, 6C/12T, 18MB",
+    "price": 2599000
+  },
+  {
+    "id": "I3.10100F.B.CH",
+    "category": "Intel",
+    "name": "CPU Intel Core I3 10100F | LGA1200, Turbo 4.30 GHz, 4C/8T, 6MB",
+    "price": 1299000
+  },
+  {
+    "id": "A.R5.5600.CH",
+    "category": "AMD",
+    "name": "CPU Intel Core I3 10100F | LGA1200, Turbo 4.30 GHz, 4C/8T, 6MB",
+    "price": 1299000
+  },
+  {
+    "id": "A.R5.4600G.CH",
+    "category": "AMD",
+    "name": "CPU AMD Ryzen 5 4600G | AM4, Upto 4.20 GHz, 6C/12T, 8MB",
+    "price": 2560000
+  },
+  {
+    "id": "A.R5.5600G.CH",
+    "category": "AMD",
+    "name": "CPU AMD Ryzen 5 5600G | AM4, Upto 4.40 GHz, 6C/12T, 16MB",
+    "price": 3450000
+  },
+  {
+    "id": "I5.12600K.B.CT",
+    "category": "Intel",
+    "name": "CPU Intel Core I5 12600K | LGA1700, Turbo 4.90 GHz, 10C/16T, 20MB",
+    "price": 4889000
+  },
+  {
+    "id": "I5.12400.B.CH",
+    "category": "Intel",
+    "name": "CPU Intel Core I5 12400 | LGA1700, Turbo 4.40 GHz, 6C/12T, 18MB",
+    "price": 3569000
+  }
+]
