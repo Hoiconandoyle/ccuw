@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List with Pagination and Category Filter</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+      .actions {
+        display: flex;
+        justify-content: space-around;
+      }
+      .actions button {
+        margin: 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="mt-4">Danh Sách Sản Phẩm</h2>
+
+      <div class="form-group" style="width: 30%">
+        <label for="categoryFilter">Tìm theo Hãng: </label>
+        <select id="categoryFilter" class="form-control">
+          <option value="all">All</option>
+          <option value="Intel">Intel</option>
+          <option value="AMD">AMD</option>
+        </select>
+      </div>
+
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select-all" /></th>
+            <th>ID sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Trình trạng</th>
+            <th>Giá</th>
+            <th>Hãng</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody id="product-table-body"></tbody>
+      </table>
+      <nav style="float: right">
+        <ul class="pagination" id="pagination"></ul>
+      </nav>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        const products = [
+          {
+            id: "I3.10105F.B.CH",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core i3 10105F",
+            price: "1,569,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12400F.B.CH",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core I5 12400F",
+            price: "2,599,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I3.10100F.B.CH",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core I3 10100F",
+            price: "1,299,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600.CH",
+            category: "AMD",
+            status: "Mới",
+            name: "CPU Intel Core I3 10100F",
+            price: "1,299,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.4600G.CH",
+            category: "AMD",
+            status: "Mới",
+            name: "CPU AMD Ryzen 5 4600G",
+            price: "2,560,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600G.CH",
+            category: "AMD",
+            status: "Mới",
+            name: "CPU AMD Ryzen 5 5600G",
+            price: "3,450,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12600K.B.CT",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core I5 12600K",
+            price: "4,889,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12400.B.CH",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core I5 12400",
+            price: "3,569,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600X.CH",
+            category: "AMD",
+            status: "Mới",
+            name: "CPU AMD Ryzen 5 5600X",
+            price: "3,990,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I3.12100.B.CH",
+            category: "Intel",
+            status: "Mới",
+            name: "CPU Intel Core I3 12100",
+            price: "2,715,000",
+            warranty: "36 tháng",
+          },
+        ];
+
+        const itemsPerPage = 3;
+        let currentPage = 1;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+
+        let filteredProducts = products;
+
+        function renderTable(products, page = 1) {
+          const startIndex = (page - 1) * itemsPerPage;
+          const endIndex = page * itemsPerPage;
+          const paginatedProducts = products.slice(startIndex, endIndex);
+
+          const tableBody = $("#product-table-body");
+          tableBody.empty();
+
+          paginatedProducts.forEach((product) => {
+            tableBody.append(`
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.status}</td>
+                            <td>${product.price} đ</td>
+                            <td>${product.category}</td>
+                            <td class="actions">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                            </td>
+                        </tr>
+                    `);
+          });
+        }
+
+        function renderPagination(totalPages) {
+          const pagination = $("#pagination");
+          pagination.empty();
+
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.append(`
+                        <li class="page-item ${
+                          i === currentPage ? "active" : ""
+                        }">
+                            <a class="page-link" href="#">${i}</a>
+                        </li>
+                    `);
+          }
+
+          $(".page-link").on("click", function (e) {
+            e.preventDefault();
+            currentPage = parseInt($(this).text());
+            renderTable(filteredProducts, currentPage);
+            renderPagination(totalPages);
+          });
+        }
+
+        function filterByCategory(category) {
+          if (category === "all") {
+            filteredProducts = products;
+          } else {
+            filteredProducts = products.filter(
+              (product) => product.category === category
+            );
+          }
+
+          currentPage = 1;
+          const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+          renderTable(filteredProducts, currentPage);
+          renderPagination(totalPages);
+        }
+
+        renderTable(products, currentPage);
+        renderPagination(totalPages);
+
+        $("#select-all").on("change", function () {
+          $('tbody input[type="checkbox"]').prop("checked", this.checked);
+        });
+
+        $("#categoryFilter").on("change", function () {
+          const selectedCategory = $(this).val();
+          filterByCategory(selectedCategory);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List with Cards and Images</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mt-4">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="book-list-tab"
+              data-toggle="tab"
+              href="#book-list"
+              role="tab"
+              aria-controls="book-list"
+              aria-selected="true"
+              >Danh sách thiết bị</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="categories-tab"
+              data-toggle="tab"
+              href="#categories"
+              role="tab"
+              aria-controls="categories"
+              aria-selected="false"
+              >Loại thiết bị</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="book-list"
+            role="tabpanel"
+            aria-labelledby="book-list-tab"
+          >
+            <h2 class="mt-4 text-center" style="color: red;">Bảng giá bán</h2>
+            <div class="row" id="product-list">
+              <!-- List Product -->
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="categories"
+            role="tabpanel"
+            aria-labelledby="categories-tab"
+          >
+            <h2 class="mt-4"></h2>
+            <div id="category-list">
+              <!-- List Product -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        const products = [
+          {
+            id: "I3.10105F.B.CH",
+            category: "Intel",
+            name: "CPU Intel Core i3 10105F | 4.40 GHz, 4 Cores 8 Threads, LGA 1200",
+            price: "1,569,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12400F.B.CH",
+            category: "Intel",
+            name: "CPU Intel Core I5 12400F | LGA1700, Turbo 4.40 GHz, 6C/12T, 18MB",
+            price: "2,599,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I3.10100F.B.CH",
+            category: "Intel",
+            name: "CPU Intel Core I3 10100F | LGA1200, Turbo 4.30 GHz, 4C/8T, 6MB",
+            price: "1,299,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600.CH",
+            category: "AMD",
+            name: "CPU Intel Core I3 10100F | LGA1200, Turbo 4.30 GHz, 4C/8T, 6MB",
+            price: "1,299,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.4600G.CH",
+            category: "AMD",
+            name: "CPU AMD Ryzen 5 4600G | AM4, Upto 4.20 GHz, 6C/12T, 8MB",
+            price: "2,560,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600G.CH",
+            category: "AMD",
+            name: "CPU AMD Ryzen 5 5600G | AM4, Upto 4.40 GHz, 6C/12T, 16MB",
+            price: "3,450,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12600K.B.CT",
+            category: "Intel",
+            name: "CPU Intel Core I5 12600K | LGA1700, Turbo 4.90 GHz, 10C/16T, 20MB",
+            price: "4,889,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I5.12400.B.CH",
+            category: "Intel",
+            name: "CPU Intel Core I5 12400 | LGA1700, Turbo 4.40 GHz, 6C/12T, 18MB",
+            price: "3,569,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "A.R5.5600X.CH",
+            category: "AMD",
+            name: "CPU AMD Ryzen 5 5600X | AM4, Upto 4.60 GHz, 6C/12T, 32MB",
+            price: "3,990,000",
+            warranty: "36 tháng",
+          },
+          {
+            id: "I3.12100.B.CH",
+            category: "Intel",
+            name: "CPU Intel Core I3 12100 | LGA1700, Turbo 4.30 GHz, 4C/8T, 12MB",
+            price: "2,715,000",
+            warranty: "36 tháng",
+          },
+        ];
+
+        const itemsPerPage = 10;
+        let currentPage = 1;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+
+        function renderProductList(products, page = 1) {
+          const startIndex = (page - 1) * itemsPerPage;
+          const endIndex = page * itemsPerPage;
+          const paginatedProducts = products.slice(startIndex, endIndex);
+
+          const productList = $("#product-list");
+          productList.empty();
+
+          paginatedProducts.forEach((product) => {
+            productList.append(`
+                        <div class="col-md-3 col-sm-6 pt-3">
+                            <div class="card flex-fill">
+                                <div class="card-body">
+                                    <h6 class="card-title">${product.name}</h6>
+                                    <p class="card-text"><strong>ID:</strong> ${product.id}</p>
+                                    <p class="card-text"><strong>Giá:</strong> ${product.price} đ</p>
+                                    <p class="card-text"><strong>Bảo hành:</strong> ${product.warranty}</p>
+                                    <div class="actions">
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                        <button class="btn btn-warning btn-sm">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+          });
+        }
+
+        function renderPagination(totalPages) {
+          const pagination = $("#pagination");
+          pagination.empty();
+
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.append(`
+                        <li class="page-item ${
+                          i === currentPage ? "active" : ""
+                        }">
+                            <a class="page-link" href="#">${i}</a>
+                        </li>
+                    `);
+          }
+          $(".page-link").on("click", function (e) {
+            e.preventDefault();
+            currentPage = parseInt($(this).text());
+            renderProductList(products, currentPage);
+            renderPagination(totalPages);
+          });
+        }
+
+        function renderCategories(products) {
+          const categoryMap = products.reduce((acc, product) => {
+            if (!acc[product.category]) {
+              acc[product.category] = [];
+            }
+            acc[product.category].push(product);
+            return acc;
+          }, {});
+
+          const categoryList = $("#category-list");
+          categoryList.empty();
+
+          Object.keys(categoryMap).forEach((category) => {
+            const accessory = categoryMap[category];
+            categoryList.append(`
+                        <div>
+                            <h3>${category}</h3>
+                            <ul class="list-group">
+                                ${accessory
+                                  .map(
+                                    (accessory) => `
+                                    <li class="list-group-item">
+                                        <div class="d-flex">
+                                            <div>
+                                                <strong>${accessory.name}</strong><br>
+                                                <small>${accessory.price} đ</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                `
+                                  )
+                                  .join("")}
+                            </ul>
+                        </div>
+                    `);
+          });
+        }
+
+        renderProductList(products, currentPage);
+        renderPagination(totalPages);
+        renderCategories(products);
+      });
+    </script>
+  </body>
+</html>
