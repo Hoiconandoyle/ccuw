@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:8.0.40-debian
+    container_name: mysql-ccuw
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbccuw
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+      - "3310:3306"
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin:apache
+    container_name: phpmyadmin-ccuw
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8090:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
