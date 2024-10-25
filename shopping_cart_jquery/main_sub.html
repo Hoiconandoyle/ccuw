@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <title>Shopping cart tabular</title>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="pt-3">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID"
+                    aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarID">
+                    <div class="navbar-nav fw-bold">
+                        <a class="nav-link" href="#">Trang chủ</a>
+                        <a class="nav-link active" href="#">Sản phẩm</a>
+                        <a class="nav-link" href="#">Liên hệ</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sản phẩm & giỏ hàng -->
+    <main class="container p-3">
+
+        <label for="categoryFilter">Tìm theo Hãng: </label>
+        <select id="categoryFilter" class="form-select w-50" aria-label="Default select example">
+            <option value="all">All</option>
+            <option value="amd">AMD</option>
+            <option value="intel">Intel</option>
+        </select>
+
+        <br />
+
+        <section class="card">
+            <h3 class="card-header">Danh sách sản phẩm</h3>
+
+            <div class="card-body table-responsive">
+                <table class="table table-striped border boder-while">
+                    <thead>
+                        <tr>
+                            <th class="w-50">Tên sản phẩm & Cấu hình</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-list">
+                        <!-- Danh sách sản phẩm render -->
+
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+
+        <br />
+        <hr />
+        <br />
+
+        <!-- Giỏ hàng -->
+        <section class="card">
+            <h3 class="card-header">Giỏ hàng sản phẩm </h3>
+            <div class="card-body table-responsive">
+                <table class="table table-striped border boder-while">
+                    <thead>
+                        <tr>
+                            <th class="w-50">Tên sản phẩm & Cấu hình</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-list">
+                        <!-- Danh sách sản phẩm render -->
+
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <table class="table boder-while">
+                    <tr class="d-flex justify-content-end">
+                        <th class="w-50">Tổng chi phí</th>
+                        <th id="total-price">0.0 đ</th>
+                    </tr>
+
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-light text-dark p-3">
+        <div class="row text-center">
+            <div class="col-3">
+                <p>CHÍNH SÁCH GIAO HÀNG <br /> Nhận hàng và thanh toán tại nhà</p>
+            </div>
+
+            <div class="col-3">
+                <p>ĐỔI TRẢ DỄ DÀNG <br />1 đổi 1 trong 7 ngày</p>
+            </div>
+
+            <div class="col-3">
+                <p>GIÁ LUÔN LUÔN RẺ NHẤT <br /> Giá cả hợp lý, nhiều ưu đãi tốt</p>
+            </div>
+
+            <div class="col-3">
+                <p>HỖ TRỢ NHIỆT TÌNH <br /> Tư vấn, giải đáp mọi thắc mắc</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="./js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- Jquery -->
+    <script src="./js/jquery/jquery-3.7.1.min.js"></script>
+    <!-- Shopping cart js -->
+    <script src="./js/main_sub.js"></script>
+</body>
+
+</html>
